@@ -1,0 +1,26 @@
+{
+    "name": "book-collection-app",
+    "version": "1.0.0",
+    "description": "A web app for my wife, Laura, to keep record of all her purchased books (source book data is from an MS Access database that she created in school)",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/elliottprogrammer/book-collection-app.git"
+    },
+    "author": "Bryan Elliott <bryan@elliottprogrammer.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/elliottprogrammer/book-collection-app/issues"
+    },
+    "homepage": "https://github.com/elliottprogrammer/book-collection-app#readme",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "express": "^4.17.1"
+    },
+    "devDependencies": {
+        "nodemon": "^1.19.1"
+    }
+}
