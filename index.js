@@ -12,8 +12,14 @@ mongoose.connect(process.env.MLAB_URI, { useNewUrlParser: true }, () =>
 
 // import routes
 const authRoute = require('./routes/auth');
+const bookRoute = require('./routes/books');
 
-// route middlewares
+// middleware
+app.use(express.json());
+
+// route middleware
 app.use('/api/user', authRoute);
+app.use('/api/books', bookRoute);
 
-app.listen(3000, () => console.log('server running on port 3000...'));
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log('server running on port 3000...'));
