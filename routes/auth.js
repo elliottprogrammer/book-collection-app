@@ -4,6 +4,14 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { check, validationResult } = require('express-validator');
 
+const myValidationResult = validationResult.withDefaults({
+    formatter: error => {
+        return {
+            [error.param]: error.msg,
+        };
+    },
+});
+
 // @route   POST api/users/register
 // @desc    Register user
 // @access  Public
@@ -18,9 +26,13 @@ router.post(
     ],
     async (req, res) => {
         // check for validation errors
-        const errors = validationResult(req);
+        const errorFormatter = ({ msg, param }) => {
+            return { [param]: msg };
+        };
+        const errors = myValidationResult(req); //.formatWith(errorFormatter);
+        console.log(errors.array());
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            return res.status(400).json({ errors: errors });
         }
         // check if user already exists
         const userExists = await User.findOne({ email: req.body.email });
@@ -61,9 +73,14 @@ router.post(
     ],
     async (req, res) => {
         // check for validation errors
-        const errors = validationResult(req);
+        const errors = myValidationResult(req); //.formatWith(errorFormatter);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            // reduce error array into simple error object
+            const errorResult = errors.array().reduce((accum, err) => {
+                accum[Object.keys(err)[0]] = err[Object.keys(err)[0]];
+                return accum;
+            }, {});
+            return res.status(400).json(errorResult);
         }
         // check if user exists
         const user = await User.findOne({ email: req.body.email });
@@ -77,14 +94,16 @@ router.post(
             return res
                 .status(400)
                 .json({ errors: [{ msg: 'Incorrect password', param: 'password' }] });
+
         // generate jwt
         const payload = {
             _id: user._id,
             name: user.name,
             email: user.email,
         };
+        // Sign Token
         const token = jwt.sign(payload, process.env.JWT_SECRET);
-        res.header('auth-token', token).send(token);
+        res.header('auth-token', token).json({ token: token });
     }
 );
 

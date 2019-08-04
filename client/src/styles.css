@@ -14,3 +14,34 @@ header.topHeader .navbar {
     padding-left: 0;
     padding-right: 0;
 }
+
+.navbar-brand .fas {
+    font-size: 2rem;
+    padding-right: 0.8rem;
+}
+
+/* Login form */
+.card.login-card {
+    max-width: 350px;
+    padding: 25px 40px 40px;
+    margin: 50px auto;
+    background-color: #fdfdfd;
+}
+
+.login-card .fas {
+    font-size: 4rem;
+    color: #17a2b8;
+    text-align: center;
+}
+
+.profile-name-card {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0 0;
+    min-height: 1em;
+}
+
+.forgot-password {
+    color: rgb(104, 145, 162);
+}
