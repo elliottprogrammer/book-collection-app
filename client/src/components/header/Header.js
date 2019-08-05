@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { logoutUser } from '../actions/userActions';
+import { logoutUser } from '../../actions/userActions';
 import { Link } from 'react-router-dom';
 
 class Header extends Component {
