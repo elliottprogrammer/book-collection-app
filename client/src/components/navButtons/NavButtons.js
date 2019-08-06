@@ -3,7 +3,7 @@ import { withRouter, Link } from 'react-router-dom';
 
 function NavButtons(props) {
     return (
-        <section>
+        <section className="nav-buttons-wrapper">
             <div className="container">
                 <nav className="nav-buttons">
                     <Link className="btn btn-lg btn-info" to="/">
