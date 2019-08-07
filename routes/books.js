@@ -2,6 +2,7 @@ const router = require('express').Router();
 const verifyRoute = require('./verifyToken');
 const Book = require('../models/Book');
 const { check, validationResult } = require('express-validator');
+const saveImage = require('../utils/saveImage');
 
 router.get('/', verifyRoute, async (req, res) => {
     try {
@@ -34,7 +35,24 @@ router.post(
         const book = new Book({
             isbn: req.body.isbn,
             title: req.body.title,
+            author_first_name: req.body.author_first_name,
+            author_last_name: req.body.author_last_name,
+            genre: req.body.genre,
+            cover_image: req.body.cover_image_url,
+            language: req.body.language,
+            borrowed_out: req.body.borrowed_out,
+            borrower_name: req.body.borrower_name,
+            borrow_date: req.body.borrow_date,
+            user_id: req.body.user_id,
         });
+
+        console.log(req.body.cover_image_url);
+        if (req.body.cover_image_url) {
+            console.log('saving image');
+            saveImage(req.body.cover_image_url, book.isbn + '.jpg', () => {
+                console.log('image saved...');
+            });
+        }
 
         // save new book to DB
         try {
