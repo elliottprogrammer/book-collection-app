@@ -1,6 +1,16 @@
 import axios from 'axios';
 import isEmpty from '../utils/isEmpty';
-import { ADD_BOOK } from '../actions/types';
+import { GET_BOOKS, ADD_BOOK } from '../actions/types';
+
+export const getBooks = () => dispatch => {
+    axios.get('/api/books').then(res => {
+        console.log(res.data);
+        dispatch({
+            type: GET_BOOKS,
+            payload: res.data,
+        });
+    });
+};
 
 export const addBook = newBook => dispatch => {
     axios.post('/api/books', newBook).then(res => {
