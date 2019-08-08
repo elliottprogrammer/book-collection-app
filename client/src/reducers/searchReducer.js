@@ -4,7 +4,7 @@ const initialState = {
     title: '',
     author_first_name: '',
     author_last_name: '',
-    cover_image: '',
+    cover_image_url: '',
 };
 
 export default function(state = initialState, action) {

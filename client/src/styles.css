@@ -81,6 +81,56 @@ header.topHeader .navbar {
     color: rgb(104, 145, 162);
 }
 
+/* Book list */
+.book {
+    display: grid;
+    grid-template-columns: 128px auto;
+    grid-template-rows: 3fr 1fr;
+    font-size: 12px;
+    padding: 5px;
+    background-color: #fcfcfc;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.book__cover {
+    grid-row: 1 / 4;
+    background-color: #fff;
+}
+
+.book .book-title {
+    font-weight: normal;
+    font-size: 18px;
+    letter-spacing: -0.025rem;
+}
+
+.book .book-title > a {
+    color: #17a2b8;
+}
+
+.book .author {
+    font-size: 16px;
+}
+
+.book__info,
+.book__footinfo {
+    padding-left: 8px;
+    padding-right: 5px;
+}
+
+.book__footinfo {
+    align-self: end;
+}
+
+.genre-item {
+    padding: 2px 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 0 3px 6px 0;
+}
+
+/* React Tags (Add-book form) */
+
 .react-tags {
     position: relative;
     padding: 0 0 0 6px;

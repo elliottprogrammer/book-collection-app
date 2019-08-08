@@ -38,7 +38,7 @@ router.post(
             author_first_name: req.body.author_first_name,
             author_last_name: req.body.author_last_name,
             genre: req.body.genre,
-            cover_image: req.body.cover_image_url,
+            cover_image_url: req.body.cover_image_url,
             language: req.body.language,
             borrowed_out: req.body.borrowed_out,
             borrower_name: req.body.borrower_name,
@@ -49,7 +49,7 @@ router.post(
         console.log(req.body.cover_image_url);
         if (req.body.cover_image_url) {
             console.log('saving image');
-            saveImage(req.body.cover_image_url, book.isbn + '.jpg', () => {
+            await saveImage(req.body.cover_image_url, book.isbn + '.jpg', () => {
                 console.log('image saved...');
             });
         }

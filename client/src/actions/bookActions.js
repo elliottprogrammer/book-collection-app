@@ -1,5 +1,4 @@
 import axios from 'axios';
-import isEmpty from '../utils/isEmpty';
 import { GET_BOOKS, ADD_BOOK } from '../actions/types';
 
 export const getBooks = () => dispatch => {

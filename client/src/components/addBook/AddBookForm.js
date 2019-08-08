@@ -75,8 +75,8 @@ class AddBookForm extends Component {
             title: this.state.title,
             author_first_name: this.state.author_first_name,
             author_last_name: this.state.author_last_name,
-            genre: Object.values(this.state.tags),
-            cover_image_url: this.state.cover_image,
+            genre: this.state.tags.map(tag => tag.name),
+            cover_image_url: this.state.cover_image_url,
             language: this.state.language,
             borrowed_out: this.state.borrowed_out,
             borrower_name: this.state.borrower_name,
@@ -168,7 +168,7 @@ class AddBookForm extends Component {
                     </div>
                     <div className="col-md-3">
                         <div className="form-group">
-                            <label htmlFor="cover-image">Book cover image:</label>
+                            <label htmlFor="cover_image_url">Book cover image:</label>
                             <input
                                 type="text"
                                 name="cover_image_url"
