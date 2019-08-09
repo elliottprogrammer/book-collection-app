@@ -1,25 +1,32 @@
 import React from 'react';
 import Header from './header/Header';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import NavButtons from './navButtons/NavButtons';
+import ProtectedRoute from './auth/ProtectedRoute';
 import Dashboard from './dashboard/DashboardPage';
 import LoginPage from './login/LoginPage';
 import AddBookPage from './addBook/addBookPage';
 import GoogleBookSearch from './googleBookSearch/GoogleBookSearchPage';
 
-function App() {
+function App(props) {
     return (
         <BrowserRouter>
             <Header />
-            <NavButtons />
+            {props.user.isAuthenticated && <NavButtons />}
             <Switch>
-                <Route exact path="/" component={Dashboard} />
+                <ProtectedRoute exact path="/" component={Dashboard} />
                 <Route path="/login" component={LoginPage} />
-                <Route path="/add-book" component={AddBookPage} />
-                <Route path="/google-book-search" component={GoogleBookSearch} />
+                <ProtectedRoute path="/add-book" component={AddBookPage} />
+                <ProtectedRoute path="/google-book-search" component={GoogleBookSearch} />
             </Switch>
         </BrowserRouter>
     );
 }
 
-export default App;
+const mapStateToProps = state => ({ user: state.user });
+
+export default connect(
+    mapStateToProps,
+    null
+)(App);

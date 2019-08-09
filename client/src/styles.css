@@ -85,7 +85,7 @@ header.topHeader .navbar {
 .book {
     display: grid;
     grid-template-columns: 128px auto;
-    grid-template-rows: 3fr 1fr;
+    grid-template-rows: 3fr auto;
     font-size: 12px;
     padding: 5px;
     background-color: #fcfcfc;
@@ -123,10 +123,12 @@ header.topHeader .navbar {
 }
 
 .genre-item {
+    display: inline-block;
     padding: 2px 5px;
     border: 1px solid #ddd;
     border-radius: 5px;
     margin: 0 3px 6px 0;
+    white-space: nowrap;
 }
 
 /* React Tags (Add-book form) */

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactTags from 'react-tag-autocomplete';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { isbnSearch } from '../../actions/searchActions';
 import { addBook } from '../../actions/bookActions';
@@ -19,6 +20,7 @@ class AddBookForm extends Component {
             borrowed_out: false,
             borrower_name: '',
             borrow_date: '',
+            errors: {},
             tags: [],
             suggestions: [
                 { id: 1, name: 'Crime' },
@@ -33,11 +35,12 @@ class AddBookForm extends Component {
                 { id: 10, name: 'Non-Fiction' },
                 { id: 11, name: 'Novel' },
                 { id: 12, name: 'Politics' },
-                { id: 13, name: 'Romance' },
-                { id: 14, name: 'Sci-Fi' },
-                { id: 15, name: 'Self Help' },
-                { id: 16, name: 'Short Stories' },
-                { id: 17, name: 'True Story' },
+                { id: 13, name: 'Prayers' },
+                { id: 14, name: 'Romance' },
+                { id: 15, name: 'Sci-Fi' },
+                { id: 16, name: 'Self Help' },
+                { id: 17, name: 'Short Stories' },
+                { id: 18, name: 'True Story' },
             ],
         };
     }
@@ -45,6 +48,9 @@ class AddBookForm extends Component {
     componentWillReceiveProps(nextProps) {
         if (!isEmpty(nextProps.bookInfo)) {
             this.setState(nextProps.bookInfo);
+        }
+        if (nextProps.errors) {
+            this.setState({ errors: nextProps.errors });
         }
     }
 
@@ -70,6 +76,7 @@ class AddBookForm extends Component {
 
     onSubmit = e => {
         e.preventDefault();
+        this.setState({ errors: {} });
         const newBook = {
             isbn: this.state.isbn,
             title: this.state.title,
@@ -83,8 +90,7 @@ class AddBookForm extends Component {
             borrow_date: this.state.borrow_date,
             user_id: this.props.user._id,
         };
-        console.log(newBook);
-        this.props.addBook(newBook);
+        this.props.addBook(newBook, this.props.history);
     };
 
     render() {
@@ -297,10 +303,18 @@ function mapStateToProps(state) {
         user: state.user,
         bookInfo: state.searchResult,
         books: state.books,
+        errors: state.errors,
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        isbnSearch: isbn => dispatch(isbnSearch(isbn)),
+        addBook: (newBook, history) => dispatch(addBook(newBook, history)),
     };
 }
 
 export default connect(
     mapStateToProps,
-    { isbnSearch, addBook }
-)(AddBookForm);
+    mapDispatchToProps
+)(withRouter(AddBookForm));

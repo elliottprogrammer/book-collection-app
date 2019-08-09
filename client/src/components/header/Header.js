@@ -2,17 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { logoutUser } from '../../actions/userActions';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
 class Header extends Component {
     handleLogout = e => {
         e.preventDefault();
         this.props.logoutUser();
-        window.location.href = '/login';
+        this.props.history.push('/login');
     };
 
     render() {
-        const { isAuthenticated, user } = this.props.user;
+        const { isAuthenticated } = this.props.user;
         return (
             <header className="topHeader bg-info">
                 <div className="container">
@@ -51,4 +51,4 @@ const mapStateToProps = state => ({
 export default connect(
     mapStateToProps,
     { logoutUser }
-)(Header);
+)(withRouter(Header));

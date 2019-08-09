@@ -42,6 +42,10 @@ const bookSchema = new mongoose.Schema({
         type: Date,
     },
     user_id: mongoose.Schema.Types.ObjectId,
+    date_added: {
+        type: Date,
+        default: Date.now(),
+    },
 });
 
 module.exports = mongoose.model('Book', bookSchema);

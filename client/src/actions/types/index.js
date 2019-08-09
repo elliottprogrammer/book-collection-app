@@ -11,8 +11,9 @@ export const SET_CURRENT_USER = 'SET_CURRENT_USER';
  */
 export const GET_BOOKS = 'GET_BOOKS';
 export const ADD_BOOK = 'ADD_BOOK';
+export const SEARCH_FILTER_BOOKS = 'SEARCH_FILTER_BOOKS';
 
 /**
- * Search action types
+ * Google Books API Search action types
  */
 export const SET_BOOK_SEARCH = 'SET_BOOK_SEARCH';

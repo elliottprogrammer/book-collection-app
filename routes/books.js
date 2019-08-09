@@ -6,7 +6,7 @@ const saveImage = require('../utils/saveImage');
 
 router.get('/', verifyRoute, async (req, res) => {
     try {
-        const books = await Book.find();
+        const books = await Book.find().sort({ date_added: -1 });
         res.json(books);
     } catch (err) {
         res.json({ message: err });
