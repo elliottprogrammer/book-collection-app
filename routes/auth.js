@@ -26,13 +26,14 @@ router.post(
     ],
     async (req, res) => {
         // check for validation errors
-        const errorFormatter = ({ msg, param }) => {
-            return { [param]: msg };
-        };
-        const errors = myValidationResult(req); //.formatWith(errorFormatter);
-        console.log(errors.array());
+        const errors = myValidationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors });
+            // reduce error array into simple error object
+            const errorResult = errors.array().reduce((accum, err) => {
+                accum[Object.keys(err)[0]] = err[Object.keys(err)[0]];
+                return accum;
+            }, {});
+            return res.status(400).json(errorResult);
         }
         // check if user already exists
         const userExists = await User.findOne({ email: req.body.email });
@@ -73,7 +74,7 @@ router.post(
     ],
     async (req, res) => {
         // check for validation errors
-        const errors = myValidationResult(req); //.formatWith(errorFormatter);
+        const errors = myValidationResult(req);
         if (!errors.isEmpty()) {
             // reduce error array into simple error object
             const errorResult = errors.array().reduce((accum, err) => {

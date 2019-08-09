@@ -4,6 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { isbnSearch } from '../../actions/searchActions';
 import { addBook } from '../../actions/bookActions';
+import classnames from 'classnames';
 import isEmpty from '../../utils/isEmpty';
 
 class AddBookForm extends Component {
@@ -94,6 +95,7 @@ class AddBookForm extends Component {
     };
 
     render() {
+        const { isbn, title, author_first_name, author_last_name, errors } = this.state;
         return (
             <form onSubmit={this.onSubmit} noValidate>
                 <div className="row">
@@ -104,10 +106,14 @@ class AddBookForm extends Component {
                                 type="text"
                                 id="isbn"
                                 name="isbn"
-                                className="form-control"
+                                className={classnames('form-control', {
+                                    'is-invalid': errors.isbn,
+                                })}
                                 onChange={this.onInputChange}
+                                value={isbn}
                                 onBlur={this.isbnSearch}
                             />
+                            {errors.isbn && <div className="invalid-feedback">{errors.isbn}</div>}
                         </div>
                     </div>
                     <div className="col-md">
@@ -117,10 +123,13 @@ class AddBookForm extends Component {
                                 type="text"
                                 id="title"
                                 name="title"
-                                className="form-control"
+                                className={classnames('form-control', {
+                                    'is-invalid': errors.title,
+                                })}
                                 onChange={this.onInputChange}
-                                value={this.state.title}
+                                value={title}
                             />
+                            {errors.title && <div className="invalid-feedback">{errors.title}</div>}
                         </div>
                     </div>
                 </div>
@@ -132,10 +141,15 @@ class AddBookForm extends Component {
                                 type="text"
                                 id="author_first_name"
                                 name="author_first_name"
-                                className="form-control"
+                                className={classnames('form-control', {
+                                    'is-invalid': errors.author_first_name,
+                                })}
                                 onChange={this.onInputChange}
-                                value={this.state.author_first_name}
+                                value={author_first_name}
                             />
+                            {errors.author_first_name && (
+                                <div className="invalid-feedback">{errors.author_first_name}</div>
+                            )}
                         </div>
                     </div>
                     <div className="col-md">
@@ -145,10 +159,15 @@ class AddBookForm extends Component {
                                 type="text"
                                 id="author_last_name"
                                 name="author_last_name"
-                                className="form-control"
+                                className={classnames('form-control', {
+                                    'is-invalid': errors.author_last_name,
+                                })}
                                 onChange={this.onInputChange}
-                                value={this.state.author_last_name}
+                                value={author_last_name}
                             />
+                            {errors.author_last_name && (
+                                <div className="invalid-feedback">{errors.author_last_name}</div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -159,17 +178,11 @@ class AddBookForm extends Component {
                             <ReactTags
                                 tags={this.state.tags}
                                 suggestions={this.state.suggestions}
+                                minQueryLength="1"
                                 onDelete={this.handleDelete.bind(this)}
                                 onAddition={this.handleAddition.bind(this)}
                                 placeholder="Add a genre"
                             />
-                            {/* <input
-                                type="text"
-                                id="genre"
-                                name="genre"
-                                className="form-control"
-                                onChange={this.onInputChange}
-                            /> */}
                         </div>
                     </div>
                     <div className="col-md-3">

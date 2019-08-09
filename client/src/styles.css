@@ -86,6 +86,7 @@ header.topHeader .navbar {
     display: grid;
     grid-template-columns: 128px auto;
     grid-template-rows: 3fr auto;
+    height: 100%;
     font-size: 12px;
     padding: 5px;
     background-color: #fcfcfc;

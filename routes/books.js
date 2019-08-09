@@ -4,6 +4,14 @@ const Book = require('../models/Book');
 const { check, validationResult } = require('express-validator');
 const saveImage = require('../utils/saveImage');
 
+const myValidationResult = validationResult.withDefaults({
+    formatter: error => {
+        return {
+            [error.param]: error.msg,
+        };
+    },
+});
+
 router.get('/', verifyRoute, async (req, res) => {
     try {
         const books = await Book.find().sort({ date_added: -1 });
@@ -23,12 +31,23 @@ router.post(
         check('title', 'This field is required')
             .not()
             .isEmpty(),
+        check('author_first_name', 'This field is required')
+            .not()
+            .isEmpty(),
+        check('author_last_name', 'This field is required')
+            .not()
+            .isEmpty(),
     ],
     async (req, res) => {
         // check for validation errors
-        const errors = validationResult(req);
+        const errors = myValidationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+            // reduce error array into simple error object
+            const errorResult = errors.array().reduce((accum, err) => {
+                accum[Object.keys(err)[0]] = err[Object.keys(err)[0]];
+                return accum;
+            }, {});
+            return res.status(400).json(errorResult);
         }
 
         // create new book
