@@ -178,7 +178,7 @@ class AddBookForm extends Component {
                             <ReactTags
                                 tags={this.state.tags}
                                 suggestions={this.state.suggestions}
-                                minQueryLength="1"
+                                minQueryLength={1}
                                 onDelete={this.handleDelete.bind(this)}
                                 onAddition={this.handleAddition.bind(this)}
                                 placeholder="Add a genre"

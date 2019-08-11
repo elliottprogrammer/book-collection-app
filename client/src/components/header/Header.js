@@ -18,7 +18,7 @@ class Header extends Component {
                 <div className="container">
                     <nav className="navbar navbar-expand-lg navbar-dark bg-info">
                         <Link className="navbar-brand" to="/">
-                            <i className="fas fa-book-reader" /> Laura's Book Collection
+                            <i className="fas fa-book-reader" /> My Book Collection
                         </Link>
                         {isAuthenticated && (
                             <ul className="navbar-nav ml-auto">
