@@ -26,7 +26,7 @@ app.use('/api/books', bookRoute);
 if (process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));
 
-    app.length('*', (req, res) => {
+    app.get('*', (req, res) => {
         res.sendfile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });
 }
