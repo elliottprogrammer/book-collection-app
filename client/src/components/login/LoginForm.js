@@ -7,8 +7,8 @@ import { loginUser } from '../../actions/userActions';
 
 class LoginForm extends Component {
     state = {
-        email: '',
-        password: '',
+        email: 'guestuser@mail.com',
+        password: '123456',
         errors: {},
     };
 
