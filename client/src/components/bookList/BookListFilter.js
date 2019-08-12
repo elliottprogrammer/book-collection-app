@@ -23,7 +23,7 @@ class BookListFilter extends Component {
             <div className="p-3 bg-light mb-5">
                 <form>
                     <div className="form-row">
-                        <div className="col-sm-3">
+                        <div className="col-sm-3 mb-3">
                             <div className="input-group">
                                 <div className="input-group-prepend">
                                     <label className="input-group-text" htmlFor="bookFilter">

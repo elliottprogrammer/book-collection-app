@@ -37,12 +37,14 @@ header.topHeader .navbar {
 .nav-buttons {
     display: flex;
     justify-content: flex-end;
+    flex-direction: column;
     padding: 1.5rem 0;
 }
 
 .nav-buttons .btn {
     margin-left: 2rem;
     border-radius: 1.5rem;
+    margin-bottom: 1.2rem;
 }
 
 .page-title {
@@ -272,4 +274,14 @@ header.topHeader .navbar {
 .react-tags__suggestions li.is-disabled {
     opacity: 1;
     cursor: auto;
+}
+
+/**
+* Media Queries 
+**/
+
+@media (min-width: 768px) {
+    .nav-buttons {
+        flex-direction: row;
+    }
 }
