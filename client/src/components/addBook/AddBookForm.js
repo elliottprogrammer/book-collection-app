@@ -67,7 +67,12 @@ class AddBookForm extends Component {
     }
 
     onInputChange = e => {
-        this.setState({ [e.target.name]: e.target.value });
+        if (e.target.type === 'text') {
+            this.setState({ [e.target.name]: e.target.value });
+        } else if (e.target.type === 'file') {
+            this.setState({ [e.target.name]: URL.createObjectURL(e.target.files[0]) });
+        }
+
     };
 
     isbnSearch = e => {
@@ -76,6 +81,7 @@ class AddBookForm extends Component {
     };
 
     onSubmit = e => {
+        console.log('submitted');
         e.preventDefault();
         this.setState({ errors: {} });
         const newBook = {
@@ -93,6 +99,13 @@ class AddBookForm extends Component {
         };
         this.props.addBook(newBook, this.props.history);
     };
+
+    handleImageRemove = e => {
+        e.preventDefault();
+        this.setState({ cover_image_url: '' }, () => {
+            console.log(this.state.cover_image_url);
+        });
+    }
 
     render() {
         const { isbn, title, author_first_name, author_last_name, errors } = this.state;
@@ -189,9 +202,13 @@ class AddBookForm extends Component {
                         <div className="form-group">
                             <label htmlFor="cover_image_url">Book cover image:</label>
                             <input
-                                type="text"
+                                type={this.state.cover_image_url ? 'text' : 'file'}
                                 name="cover_image_url"
-                                className="form-control"
+                                className={
+                                    this.state.cover_image_url
+                                        ? 'form-control'
+                                        : 'form-control-file'
+                                }
                                 id="cover_image_url"
                                 onChange={this.onInputChange}
                                 value={this.state.cover_image_url}
@@ -200,7 +217,10 @@ class AddBookForm extends Component {
                     </div>
                     <div className="col-md-3">
                         {this.state.cover_image_url && (
-                            <img src={this.state.cover_image_url} alt="Book Cover" />
+                            <div className="text-center">
+                                <img src={this.state.cover_image_url} alt="Book Cover" /><br />
+                                <small><a href="#" onClick={this.handleImageRemove}>Remove &amp; upload new</a></small>
+                            </div>
                         )}
                     </div>
                 </div>
